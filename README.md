@@ -1,8 +1,8 @@
 # Reopen-Closed-Tab-with-Command-Z-Ctrl-Z
 
-## Intro
+\[ English | [简体中文](./README-zh.md) \]
 
-This is a browser extension aimed to reproduce an intuitive shortcut on Safari.
+This is a browser extension aimed to reproduce an intuitive Safari shortcut on other browsers, such as Firefox, Google Chrome and Microsoft Edge.
 
 ## Features
 
@@ -16,7 +16,7 @@ Developed especially for the users who transfer from, and have got used to the i
 
 Developed for all operation systems. Have been tested on macOS (Command + Z) and Windows (Ctrl + Z).
 
-Developed for Firefox and all browsers using Chromium. Have been tested on Firefox, Chrome and Edge.
+Developed for Firefox and all browsers using Chromium. Have been tested on Firefox, Google Chrome and Microsoft Edge.
 
 Please feel free to report bug or give advice on the Issues.
 
@@ -24,13 +24,13 @@ Please feel free to report bug or give advice on the Issues.
 
 ### Firefox
 
-Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/reopen-closed-tab-with-cmd-z/), or manually install using [this package](package%20for%20Firefox).
+Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/reopen-closed-tab-with-cmd-z/), or manually install using [this package](./package%20for%20Firefox).
 
-### Chrome and Edge
+### Google Chrome and Microsoft Edge
 
-Chrome demands $5 from developer for uploading their extension to Chrome Web Store 🥲 So please install manually:
+Google demands $5 from developer for uploading their extension to Chrome Web Store 🥲 So please install manually:
 
-1. Download [this package](package%20for%20Chromium)
+1. Download [this package](./package%20for%20Chromium)
 2. Navigate to `chrome://extensions/` or `edge://extensions/`
 3. Switch on `Developer mode`
 4. Click the button `Load unpacked`
@@ -38,7 +38,9 @@ Chrome demands $5 from developer for uploading their extension to Chrome Web Sto
 
 ### Other browsers using Chromium
 
-Please search for related information on how to manually install an extension on your browser. When you need to uplaod extension file, use [this package](package%20for%20Chromium).
+Please search for related information on how to manually install an extension on your browser. When you need to uplaod extension file, use [this package](./package%20for%20Chromium).
 
+## Known bug
+- Not work when editing GitHub code
 
 
