@@ -8,7 +8,7 @@ This is a browser extension aimed to reproduce an intuitive Safari shortcut on o
 
 Safari-like function to reopen tab with `Command + Z`, or `Ctrl + Z` on Windows.
 
-It will not conflict with the Undo function when you are in a text editing field.
+It will not conflict with the Undo function when you are in a text editing field, i.e., intelligently perform *Undo* instead of *Reopen Tab*.
 
 Developed especially for the users who transfer from, and have got used to the intuitiveness of Safari. We also recommend all users experience this intuitive shortcut!
 
