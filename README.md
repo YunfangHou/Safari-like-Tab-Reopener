@@ -24,11 +24,13 @@ Please feel free to report bug or give advice on the Issues.
 
 ### Firefox
 
-Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/reopen-closed-tab-with-cmd-z/).
+Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/reopen-closed-tab-with-cmd-z/), or manually install using [this package](package%20for%20Firefox).
 
 ### Chrome and Edge
 
-1. Download [this folder](package%20for%20Chromium)
+Chrome demands $5 from developer for uploading their extension to Chrome Web Store 🥲 So please install manually:
+
+1. Download [this package](package%20for%20Chromium)
 2. Navigate to `chrome://extensions/` or `edge://extensions/`
 3. Switch on `Developer mode`
 4. Click the button `Load unpacked`
@@ -36,7 +38,7 @@ Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/reop
 
 ### Other browsers using Chromium
 
-Please search for related information on how to manually install an extension on your browser. When you need to uplaod extension file, use [this folder](package%20for%20Chromium).
+Please search for related information on how to manually install an extension on your browser. When you need to uplaod extension file, use [this package](package%20for%20Chromium).
 
 
 
