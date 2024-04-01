@@ -1,0 +1,43 @@
+{
+    "manifest_version": 3,
+    "name": "Reopen Last Tab",
+    "version": "1.0",
+    "description": "Reopens the last closed tab if a specific key combination is pressed.",
+    "permissions": [
+        "tabs",
+        "sessions"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_icon": {
+            "32": "icons/icon-32.png",
+            "64": "icons/icon-64.png",
+            "96": "icons/icon-96.png",
+            "128": "icons/icon-128.png",
+            "256": "icons/icon-256.png",
+            "512": "icons/icon-512.png"
+        },
+        "default_title": "Reopen Last Tab"
+    },
+    "commands": {
+        "reopen_last_tab": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+T",
+                "mac": "Command+Shift+T"
+            },
+            "description": "Reopen the last closed tab"
+        }
+    }
+}
