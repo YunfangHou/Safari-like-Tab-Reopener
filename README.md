@@ -1,4 +1,4 @@
-# Reopen-Closed-Tab-with-Command-Z-Ctrl-Z
+# Safari-like-Tab-Reopener
 
 \[ English | [简体中文](./README-zh.md) \]
 
@@ -24,7 +24,7 @@ Please feel free to report bug or give advice on the Issues.
 
 ### Firefox
 
-Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/reopen-closed-tab-with-cmd-z/), or manually install using [this package](./package%20for%20Firefox).
+Install on [Firefox Add-ons Store](https://addons.mozilla.org/en-GB/firefox/addon/safari-like-tab-reopener/), or manually install using [this package](./package%20for%20Firefox).
 
 ### Google Chrome and Microsoft Edge
 

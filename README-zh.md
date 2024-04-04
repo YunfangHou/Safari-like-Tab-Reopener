@@ -1,4 +1,4 @@
-# 用 Command-Z / Ctrl-Z 重新打开关闭的标签页
+# 以 Safari 的风格重新打开标签页
 
 \[ 简体中文 | [English](./README.md) \]
 
@@ -24,7 +24,7 @@
 
 ### Firefox
 
-在 [Firefox 附加组件商店](https://addons.mozilla.org/firefox/addon/reopen-closed-tab-with-cmd-z/)安装，或使用[此包](./package%20for%20Firefox)手动安装。
+在 [Firefox 附加组件商店](https://addons.mozilla.org/en-GB/firefox/addon/safari-like-tab-reopener/)安装，或使用[此包](./package%20for%20Firefox)手动安装。
 
 ### Google Chrome 和 Microsoft Edge
 
