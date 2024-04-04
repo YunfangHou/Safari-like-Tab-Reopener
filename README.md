@@ -24,7 +24,7 @@ Please feel free to report bug or give advice on the Issues.
 
 ### Firefox
 
-Install on [Firefox Add-ons Store](https://addons.mozilla.org/en-GB/firefox/addon/safari-like-tab-reopener/), or manually install using [this package](./package%20for%20Firefox).
+Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/safari-like-tab-reopener/), or manually install using [this package](./package%20for%20Firefox).
 
 ### Google Chrome and Microsoft Edge
 

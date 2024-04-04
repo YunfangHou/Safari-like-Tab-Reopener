@@ -24,7 +24,7 @@
 
 ### Firefox
 
-在 [Firefox 附加组件商店](https://addons.mozilla.org/en-GB/firefox/addon/safari-like-tab-reopener/)安装，或使用[此包](./package%20for%20Firefox)手动安装。
+在 [Firefox 附加组件商店](https://addons.mozilla.org/firefox/addon/safari-like-tab-reopener/)安装，或使用[此包](./package%20for%20Firefox)手动安装。
 
 ### Google Chrome 和 Microsoft Edge
 
