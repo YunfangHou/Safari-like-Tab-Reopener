@@ -40,7 +40,5 @@ Google demands $5 from developer for uploading their extension to Chrome Web Sto
 
 Please search for related information on how to manually install an extension on your browser. When you need to uplaod extension file, use [this package](./package%20for%20Chromium).
 
-## Known bug
-- Not work when editing GitHub code
 
 
