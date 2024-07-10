@@ -1,10 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Reopen Last Tab",
+    "name": "Reopen Closed Tab with Command + Z / Ctrl + Z",
     "version": "1.1",
-    "description": "Reopens the last closed tab if a specific key combination is pressed.",
+    "description": "Reopen closed tab with Command + Z, or Ctrl + Z on Windows. Will not conflict with the Undo function when in text editing field.",
     "permissions": [
-        "tabs",
         "sessions"
     ],
     "background": {
