@@ -28,13 +28,8 @@
 
 ### Google Chrome 和 Microsoft Edge
 
-Google 要求开发者支付 5 美元才能将其扩展程序上传到 Chrome 网上应用商店 🥲 所以请手动安装：
+在 [Google Chrome 扩展商店](https://chromewebstore.google.com/detail/reopen-closed-tab-with-co/lhdlapjgijgdpoobgjlbnnijoepcbodf)安装，或使用[此包](./package%20for%20Chromium)手动安装。
 
-1. 下载[此包](./package%20for%20Chromium)
-2. 导航到 `chrome://extensions/` 或 `edge://extensions/`
-3. 开启`开发者模式`
-4. 点击`加载已解压的扩展程序`
-5. 上传第 1 步中下载的文件夹
 
 ### 其他使用 Chromium 的浏览器
 

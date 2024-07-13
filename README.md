@@ -28,13 +28,7 @@ Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/safa
 
 ### Google Chrome and Microsoft Edge
 
-Google demands $5 from developer for uploading their extension to Chrome Web Store 🥲 So please install manually:
-
-1. Download [this package](./package%20for%20Chromium)
-2. Navigate to `chrome://extensions/` or `edge://extensions/`
-3. Switch on `Developer mode`
-4. Click the button `Load unpacked`
-5. Upload the folder downloaded in step 1
+Install on [Google Chrome Extensions Store](https://chromewebstore.google.com/detail/reopen-closed-tab-with-co/lhdlapjgijgdpoobgjlbnnijoepcbodf), or manually install using [this package](./package%20for%20Chromium).
 
 ### Other browsers using Chromium
 
