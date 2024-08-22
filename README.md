@@ -26,13 +26,13 @@ Please feel free to report bug or give advice on the Issues.
 
 Install on [Firefox Add-ons Store](https://addons.mozilla.org/firefox/addon/safari-like-tab-reopener/), or manually install using [this package](./package%20for%20Firefox).
 
-### Google Chrome and Microsoft Edge
+### Google Chrome
 
 Install on [Google Chrome Extensions Store](https://chromewebstore.google.com/detail/reopen-closed-tab-with-co/lhdlapjgijgdpoobgjlbnnijoepcbodf), or manually install using [this package](./package%20for%20Chromium).
 
-### Other browsers using Chromium
+### Microsoft Edge or other browsers using Chromium
 
-Please search for related information on how to manually install an extension on your browser. When you need to uplaod extension file, use [this package](./package%20for%20Chromium).
+Please search for related information on how to manually install an extension on your browser. When you need to upload extension file, use [this package](./package%20for%20Chromium).
 
 
 
