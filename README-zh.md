@@ -26,11 +26,11 @@
 
 在 [Firefox 附加组件商店](https://addons.mozilla.org/firefox/addon/safari-like-tab-reopener/)安装，或使用[此包](./package%20for%20Firefox)手动安装。
 
-### Google Chrome 和 Microsoft Edge
+### Google Chrome
 
 在 [Google Chrome 扩展商店](https://chromewebstore.google.com/detail/reopen-closed-tab-with-co/lhdlapjgijgdpoobgjlbnnijoepcbodf)安装，或使用[此包](./package%20for%20Chromium)手动安装。
 
 
-### 其他使用 Chromium 的浏览器
+### Microsoft Edge 或其他使用 Chromium 的浏览器
 
 请搜索如何在您的浏览器上手动安装扩展的相关信息。当您需要上传扩展文件时，使用[此包](./package%20for%20Chromium)。
