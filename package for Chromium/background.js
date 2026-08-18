@@ -3,7 +3,7 @@ const EXCLUDED_WEBSITES_MENU_ID = 'open-excluded-websites';
 function setExclusionBadge(tabId, excluded) {
     chrome.action.setBadgeText({
         tabId,
-        text: excluded ? 'OFF' : ''
+        text: excluded ? chrome.i18n.getMessage('badgeOff') : ''
     });
 
     if (excluded) {
@@ -18,7 +18,7 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.contextMenus.removeAll(function () {
         chrome.contextMenus.create({
             id: EXCLUDED_WEBSITES_MENU_ID,
-            title: 'Excluded websites',
+            title: chrome.i18n.getMessage('excludedWebsites'),
             contexts: ['action']
         });
     });

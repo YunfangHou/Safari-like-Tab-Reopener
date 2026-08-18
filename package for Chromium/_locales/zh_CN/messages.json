@@ -1,0 +1,42 @@
+{
+    "extensionName": { "message": "使用 Command + Z / Ctrl + Z 恢复关闭的标签页" },
+    "extensionDescription": { "message": "使用 Command/Ctrl + Z 恢复关闭的标签页，同时避开文本编辑区和用户排除的网站。" },
+    "reopenLastTabCommand": { "message": "恢复最近关闭的标签页" },
+    "excludedWebsites": { "message": "排除的网站" },
+    "badgeOff": { "message": "关" },
+    "currentWebsite": { "message": "当前网站" },
+    "loading": { "message": "正在加载…" },
+    "excludeThisWebsite": { "message": "排除这个网站" },
+    "yourList": { "message": "排除列表" },
+    "noExcludedWebsites": { "message": "尚未排除任何网站。" },
+    "editFullList": { "message": "编辑完整列表" },
+    "thisPageCannotBeExcluded": { "message": "无法排除当前页面。" },
+    "removeFromExclusions": {
+        "message": "从排除列表中移除 $HOST$",
+        "placeholders": { "host": { "content": "$1", "example": "example.com" } }
+    },
+    "remove": { "message": "移除" },
+    "removeHost": {
+        "message": "移除 $HOST$",
+        "placeholders": { "host": { "content": "$1", "example": "example.com" } }
+    },
+    "unableUpdateList": { "message": "无法更新排除列表。" },
+    "settingsTitle": { "message": "Safari 风格标签页恢复器设置" },
+    "optionsExplanation": { "message": "在这些网站上，Command/Ctrl + Z 将交由网站处理，而不会恢复关闭的标签页。" },
+    "optionsLabel": { "message": "每行输入一个域名或网址；其子域名会自动包含在内。" },
+    "save": { "message": "保存" },
+    "invalidEntry": {
+        "message": "未保存：无效条目“$ENTRY$”。",
+        "placeholders": { "entry": { "content": "$1", "example": "无效域名" } }
+    },
+    "savedOne": {
+        "message": "已保存 $COUNT$ 个排除网站。",
+        "placeholders": { "count": { "content": "$1", "example": "1" } }
+    },
+    "savedMany": {
+        "message": "已保存 $COUNT$ 个排除网站。",
+        "placeholders": { "count": { "content": "$1", "example": "3" } }
+    },
+    "unableSaveList": { "message": "无法保存排除列表。" },
+    "unableLoadList": { "message": "无法加载排除列表。" }
+}

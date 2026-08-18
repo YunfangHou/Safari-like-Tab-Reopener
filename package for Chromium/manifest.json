@@ -1,8 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Reopen Closed Tab with Command + Z / Ctrl + Z",
+    "name": "__MSG_extensionName__",
     "version": "1.4",
-    "description": "Reopen closed tabs with Command/Ctrl + Z while respecting editing fields and excluded websites.",
+    "description": "__MSG_extensionDescription__",
+    "default_locale": "en",
     "permissions": [
         "activeTab",
         "contextMenus",
@@ -31,7 +32,7 @@
             "256": "icons/icon-256.png",
             "512": "icons/icon-512.png"
         },
-        "default_title": "Excluded websites",
+        "default_title": "__MSG_excludedWebsites__",
         "default_popup": "popup.html"
     },
     "commands": {
@@ -40,7 +41,7 @@
                 "default": "Ctrl+Shift+T",
                 "mac": "Command+Shift+T"
             },
-            "description": "Reopen the last closed tab"
+            "description": "__MSG_reopenLastTabCommand__"
         }
     }
 }

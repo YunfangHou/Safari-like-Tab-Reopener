@@ -3,25 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Excluded websites</title>
+    <title data-i18n="excludedWebsites">Excluded websites</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
     <main>
-        <h1>Excluded websites</h1>
+        <h1 data-i18n="excludedWebsites">Excluded websites</h1>
         <section class="current-site" aria-labelledby="current-site-heading">
-            <h2 id="current-site-heading">Current website</h2>
-            <div id="current-host">Loading…</div>
-            <button id="toggle-current" type="button" disabled>Exclude this website</button>
+            <h2 id="current-site-heading" data-i18n="currentWebsite">Current website</h2>
+            <div id="current-host" data-i18n="loading">Loading…</div>
+            <button id="toggle-current" type="button" disabled data-i18n="excludeThisWebsite">Exclude this website</button>
         </section>
         <section aria-labelledby="list-heading">
-            <h2 id="list-heading">Your list</h2>
-            <p id="empty-list">No excluded websites yet.</p>
+            <h2 id="list-heading" data-i18n="yourList">Your list</h2>
+            <p id="empty-list" data-i18n="noExcludedWebsites">No excluded websites yet.</p>
             <ul id="excluded-list"></ul>
         </section>
-        <button id="manage-list" class="secondary" type="button">Edit full list</button>
+        <button id="manage-list" class="secondary" type="button" data-i18n="editFullList">Edit full list</button>
         <p id="status" role="status" aria-live="polite"></p>
     </main>
+    <script src="i18n.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>

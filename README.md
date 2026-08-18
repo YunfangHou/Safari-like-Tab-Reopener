@@ -14,6 +14,8 @@ It will not conflict with the Undo function when you are in a text editing field
 
 Websites with their own undo shortcuts, such as image editors and website builders, can be added to an exclusion list. Click the extension button to quickly add the current website or manage the list, or right-click it and choose **Excluded websites** to open the full editor. Each domain also excludes its subdomains.
 
+The extension interface automatically follows the browser language, with English and Simplified Chinese currently available.
+
 Developed especially for the users who transfer from, and have got used to the intuitiveness of Safari. We also recommend all users experience this intuitive shortcut!
 
 ## Compatibility

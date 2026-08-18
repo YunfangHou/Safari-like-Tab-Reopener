@@ -25,11 +25,11 @@ async function saveHosts(hosts) {
 function render() {
     const matchedRule = currentHost ? matchingRule(currentHost) : null;
 
-    currentHostElement.textContent = currentHost || 'This page cannot be excluded.';
+    currentHostElement.textContent = currentHost || localizeMessage('thisPageCannotBeExcluded');
     toggleCurrentButton.disabled = !currentHost;
     toggleCurrentButton.textContent = matchedRule
-        ? `Remove ${matchedRule} from exclusions`
-        : 'Exclude this website';
+        ? localizeMessage('removeFromExclusions', matchedRule)
+        : localizeMessage('excludeThisWebsite');
 
     excludedListElement.replaceChildren();
     emptyListElement.hidden = excludedHosts.length > 0;
@@ -42,8 +42,8 @@ function render() {
         label.textContent = host;
         removeButton.type = 'button';
         removeButton.className = 'remove';
-        removeButton.textContent = 'Remove';
-        removeButton.setAttribute('aria-label', `Remove ${host}`);
+        removeButton.textContent = localizeMessage('remove');
+        removeButton.setAttribute('aria-label', localizeMessage('removeHost', host));
         removeButton.addEventListener('click', () => {
             saveHosts(excludedHosts.filter(itemHost => itemHost !== host)).catch(showError);
         });
@@ -54,7 +54,7 @@ function render() {
 }
 
 function showError() {
-    statusElement.textContent = 'Unable to update the exclusion list.';
+    statusElement.textContent = localizeMessage('unableUpdateList');
 }
 
 async function initialize() {

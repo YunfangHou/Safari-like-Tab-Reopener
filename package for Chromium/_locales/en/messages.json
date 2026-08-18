@@ -1,0 +1,42 @@
+{
+    "extensionName": { "message": "Reopen Closed Tab with Command + Z / Ctrl + Z" },
+    "extensionDescription": { "message": "Reopen closed tabs with Command/Ctrl + Z while respecting editing fields and excluded websites." },
+    "reopenLastTabCommand": { "message": "Reopen the last closed tab" },
+    "excludedWebsites": { "message": "Excluded websites" },
+    "badgeOff": { "message": "OFF" },
+    "currentWebsite": { "message": "Current website" },
+    "loading": { "message": "Loading…" },
+    "excludeThisWebsite": { "message": "Exclude this website" },
+    "yourList": { "message": "Your list" },
+    "noExcludedWebsites": { "message": "No excluded websites yet." },
+    "editFullList": { "message": "Edit full list" },
+    "thisPageCannotBeExcluded": { "message": "This page cannot be excluded." },
+    "removeFromExclusions": {
+        "message": "Remove $HOST$ from exclusions",
+        "placeholders": { "host": { "content": "$1", "example": "example.com" } }
+    },
+    "remove": { "message": "Remove" },
+    "removeHost": {
+        "message": "Remove $HOST$",
+        "placeholders": { "host": { "content": "$1", "example": "example.com" } }
+    },
+    "unableUpdateList": { "message": "Unable to update the exclusion list." },
+    "settingsTitle": { "message": "Safari-like Tab Reopener Settings" },
+    "optionsExplanation": { "message": "On these websites, Command/Ctrl + Z will be left to the website instead of reopening a closed tab." },
+    "optionsLabel": { "message": "Enter one domain or URL per line. Subdomains are included automatically." },
+    "save": { "message": "Save" },
+    "invalidEntry": {
+        "message": "Not saved: invalid entry “$ENTRY$”.",
+        "placeholders": { "entry": { "content": "$1", "example": "not a host" } }
+    },
+    "savedOne": {
+        "message": "Saved $COUNT$ excluded website.",
+        "placeholders": { "count": { "content": "$1", "example": "1" } }
+    },
+    "savedMany": {
+        "message": "Saved $COUNT$ excluded websites.",
+        "placeholders": { "count": { "content": "$1", "example": "3" } }
+    },
+    "unableSaveList": { "message": "Unable to save the exclusion list." },
+    "unableLoadList": { "message": "Unable to load the exclusion list." }
+}

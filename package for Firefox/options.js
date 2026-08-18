@@ -43,7 +43,7 @@ async function saveOptions() {
     const invalidLines = lines.filter(line => line.trim() && !normalizeHost(line));
 
     if (invalidLines.length > 0) {
-        status.textContent = `Not saved: invalid entry “${invalidLines[0].trim()}”.`;
+        status.textContent = localizeMessage('invalidEntry', invalidLines[0].trim());
         status.className = 'error';
         return;
     }
@@ -51,18 +51,18 @@ async function saveOptions() {
     const hosts = [...new Set(lines.map(normalizeHost).filter(Boolean))].sort();
     await extensionApi.storage.local.set({ [EXCLUDED_HOSTS_KEY]: hosts });
     textarea.value = hosts.join('\n');
-    status.textContent = `Saved ${hosts.length} excluded website${hosts.length === 1 ? '' : 's'}.`;
+    status.textContent = localizeMessage(hosts.length === 1 ? 'savedOne' : 'savedMany', String(hosts.length));
     status.className = 'success';
 }
 
 document.getElementById('save').addEventListener('click', () => {
     saveOptions().catch(() => {
-        status.textContent = 'Unable to save the exclusion list.';
+        status.textContent = localizeMessage('unableSaveList');
         status.className = 'error';
     });
 });
 
 restoreOptions().catch(() => {
-    status.textContent = 'Unable to load the exclusion list.';
+    status.textContent = localizeMessage('unableLoadList');
     status.className = 'error';
 });
