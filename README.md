@@ -12,6 +12,8 @@ The shortcut follows the Z key across keyboard layouts, including layouts where 
 
 It will not conflict with the Undo function when you are in a text editing field or working in Google Sheets, i.e., intelligently perform *Undo* instead of *Reopen Tab*.
 
+Editing fields implemented with web components and Shadow DOM are also detected through the keyboard event path.
+
 Websites with their own undo shortcuts, such as image editors and website builders, can be added to an exclusion list. Click the extension button to quickly add the current website or manage the list, or right-click it and choose **Excluded websites** to open the full editor. Each domain also excludes its subdomains.
 
 The extension interface automatically follows the browser language, with English and Simplified Chinese currently available.

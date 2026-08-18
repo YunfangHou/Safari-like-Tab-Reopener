@@ -32,8 +32,23 @@ function isEditableElement(element) {
         return false;
     }
 
-    return element.matches('input, textarea, [contenteditable]:not([contenteditable="false"]), [role="textbox"]') ||
-        Boolean(element.closest('[contenteditable]:not([contenteditable="false"]), [role="textbox"]'));
+    const editableSelector = 'input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], [role="searchbox"], [role="combobox"], [role="spinbutton"]';
+
+    return element.isContentEditable ||
+        element.matches(editableSelector) ||
+        Boolean(element.closest(editableSelector));
+}
+
+function isEditableContext(event) {
+    if (event.isComposing || document.designMode.toLowerCase() === 'on') {
+        return true;
+    }
+
+    const eventPath = typeof event.composedPath === 'function'
+        ? event.composedPath()
+        : [event.target];
+
+    return eventPath.some(isEditableElement) || isEditableElement(document.activeElement);
 }
 
 function isUndoShortcut(event) {
@@ -71,7 +86,7 @@ document.addEventListener('keydown', function (event) {
 
     // Google Sheets implements its own undo history even when the focused cell
     // is not represented by a text-editing element in the page DOM.
-    if (!exclusionListReady || isGoogleSheetsPage() || isExcludedPage() || event.defaultPrevented || isEditableElement(event.target) || isEditableElement(document.activeElement)) {
+    if (!exclusionListReady || isGoogleSheetsPage() || isExcludedPage() || event.defaultPrevented || isEditableContext(event)) {
         return;
     }
 
