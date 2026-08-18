@@ -12,8 +12,17 @@ function isEditableElement(element) {
         Boolean(element.closest('[contenteditable]:not([contenteditable="false"]), [role="textbox"]'));
 }
 
+function isUndoShortcut(event) {
+    const key = typeof event.key === 'string' ? event.key.toLowerCase() : '';
+
+    // `key` follows the active keyboard layout, while `code` identifies the
+    // physical Z key (for example, it produces "я" on a Russian layout).
+    return (event.ctrlKey || event.metaKey) &&
+        (event.code === 'KeyZ' || key === 'z');
+}
+
 document.addEventListener('keydown', function (event) {
-    if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 'z') {
+    if (!isUndoShortcut(event)) {
         return;
     }
 
