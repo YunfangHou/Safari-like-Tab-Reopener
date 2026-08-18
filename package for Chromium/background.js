@@ -1,5 +1,19 @@
 const EXCLUDED_WEBSITES_MENU_ID = 'open-excluded-websites';
 
+function setExclusionBadge(tabId, excluded) {
+    chrome.action.setBadgeText({
+        tabId,
+        text: excluded ? 'OFF' : ''
+    });
+
+    if (excluded) {
+        chrome.action.setBadgeBackgroundColor({
+            tabId,
+            color: '#666666'
+        });
+    }
+}
+
 chrome.runtime.onInstalled.addListener(function () {
     chrome.contextMenus.removeAll(function () {
         chrome.contextMenus.create({
@@ -16,7 +30,18 @@ chrome.contextMenus.onClicked.addListener(function (info) {
     }
 });
 
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
+    if (changeInfo.status === 'loading') {
+        setExclusionBadge(tabId, false);
+    }
+});
+
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.command === 'set_exclusion_state' && sender.tab) {
+        setExclusionBadge(sender.tab.id, Boolean(message.excluded));
+        return;
+    }
+
     if (message.command === "reopen_last_tab") {
         chrome.sessions.restore();
     }

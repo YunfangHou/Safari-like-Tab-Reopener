@@ -9,6 +9,7 @@ function setExcludedHosts(hosts) {
         ? hosts.filter(host => typeof host === 'string' && host.length > 0)
         : [];
     exclusionListReady = true;
+    reportExclusionState();
 }
 
 extensionApi.storage.local.get(EXCLUDED_HOSTS_KEY)
@@ -50,6 +51,17 @@ function isExcludedPage() {
     return excludedHosts.some(excludedHost =>
         hostname === excludedHost || hostname.endsWith(`.${excludedHost}`)
     );
+}
+
+function reportExclusionState() {
+    if (!exclusionListReady) {
+        return;
+    }
+
+    extensionApi.runtime.sendMessage({
+        command: 'set_exclusion_state',
+        excluded: isGoogleSheetsPage() || isExcludedPage()
+    });
 }
 
 document.addEventListener('keydown', function (event) {

@@ -1,5 +1,19 @@
 const EXCLUDED_WEBSITES_MENU_ID = 'open-excluded-websites';
 
+function setExclusionBadge(tabId, excluded) {
+    browser.browserAction.setBadgeText({
+        tabId,
+        text: excluded ? 'OFF' : ''
+    });
+
+    if (excluded) {
+        browser.browserAction.setBadgeBackgroundColor({
+            tabId,
+            color: '#666666'
+        });
+    }
+}
+
 browser.runtime.onInstalled.addListener(function () {
     browser.contextMenus.removeAll().then(function () {
         browser.contextMenus.create({
@@ -16,7 +30,18 @@ browser.contextMenus.onClicked.addListener(function (info) {
     }
 });
 
-browser.runtime.onMessage.addListener(function(message) {
+browser.tabs.onUpdated.addListener(function (tabId, changeInfo) {
+    if (changeInfo.status === 'loading') {
+        setExclusionBadge(tabId, false);
+    }
+});
+
+browser.runtime.onMessage.addListener(function(message, sender) {
+    if (message.command === 'set_exclusion_state' && sender.tab) {
+        setExclusionBadge(sender.tab.id, Boolean(message.excluded));
+        return;
+    }
+
     if (message.command === "reopen_last_tab") {
         browser.sessions.restore();
     }
