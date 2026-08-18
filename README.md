@@ -8,7 +8,7 @@ This is a browser extension aimed to reproduce an intuitive Safari shortcut on o
 
 Safari-like function to reopen tab with `Command + Z`, or `Ctrl + Z` on Windows.
 
-It will not conflict with the Undo function when you are in a text editing field, i.e., intelligently perform *Undo* instead of *Reopen Tab*.
+It will not conflict with the Undo function when you are in a text editing field or working in Google Sheets, i.e., intelligently perform *Undo* instead of *Reopen Tab*.
 
 Developed especially for the users who transfer from, and have got used to the intuitiveness of Safari. We also recommend all users experience this intuitive shortcut!
 
@@ -33,6 +33,5 @@ Install on [Google Chrome Extensions Store](https://chromewebstore.google.com/de
 ### Microsoft Edge or other browsers using Chromium
 
 Please search for related information on how to manually install an extension on your browser. When you need to upload extension file, use [this package](./package%20for%20Chromium).
-
 
 
