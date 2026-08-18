@@ -42,3 +42,9 @@
 ### Microsoft Edge 或其他使用 Chromium 的浏览器
 
 请搜索如何在您的浏览器上手动安装扩展的相关信息。当您需要上传扩展文件时，使用[此包](./package%20for%20Chromium)。
+
+## 开发与发布
+
+运行 `npm test` 可检查两套 manifest、JavaScript 语法、翻译目录、两套安装包的共享文件以及扩展核心行为。
+
+运行 `npm run package` 会先执行检查，再在 `dist/` 中生成 Chrome Web Store ZIP、Firefox XPI 和 `SHA256SUMS.txt`。每个压缩包的根目录都直接包含 `manifest.json`，并会排除操作系统元数据文件。

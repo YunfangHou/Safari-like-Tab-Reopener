@@ -41,3 +41,9 @@ Install on [Google Chrome Extensions Store](https://chromewebstore.google.com/de
 ### Microsoft Edge or other browsers using Chromium
 
 Please search for related information on how to manually install an extension on your browser. When you need to upload extension file, use [this package](./package%20for%20Chromium).
+
+## Development and release
+
+Run `npm test` to validate both manifests, JavaScript syntax, localization catalogs, shared package files and core extension behavior.
+
+Run `npm run package` to run the checks and create a Chrome Web Store ZIP, a Firefox XPI and `SHA256SUMS.txt` in `dist/`. Each archive places `manifest.json` at its root and excludes operating-system metadata files.

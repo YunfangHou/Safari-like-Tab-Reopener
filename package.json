@@ -1,0 +1,9 @@
+{
+    "name": "safari-like-tab-reopener",
+    "version": "1.4.0",
+    "private": true,
+    "scripts": {
+        "test": "node scripts/validate-packages.mjs && node --test tests/*.test.mjs",
+        "package": "npm test && bash scripts/package-release.sh"
+    }
+}
