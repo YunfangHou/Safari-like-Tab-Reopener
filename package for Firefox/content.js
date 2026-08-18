@@ -1,3 +1,26 @@
+const extensionApi = typeof browser === 'undefined' ? chrome : browser;
+const EXCLUDED_HOSTS_KEY = 'excludedHosts';
+
+let excludedHosts = [];
+let exclusionListReady = false;
+
+function setExcludedHosts(hosts) {
+    excludedHosts = Array.isArray(hosts)
+        ? hosts.filter(host => typeof host === 'string' && host.length > 0)
+        : [];
+    exclusionListReady = true;
+}
+
+extensionApi.storage.local.get(EXCLUDED_HOSTS_KEY)
+    .then(result => setExcludedHosts(result[EXCLUDED_HOSTS_KEY]))
+    .catch(() => setExcludedHosts([]));
+
+extensionApi.storage.onChanged.addListener(function (changes, areaName) {
+    if (areaName === 'local' && changes[EXCLUDED_HOSTS_KEY]) {
+        setExcludedHosts(changes[EXCLUDED_HOSTS_KEY].newValue);
+    }
+});
+
 function isGoogleSheetsPage() {
     return location.hostname === 'docs.google.com' &&
         location.pathname.startsWith('/spreadsheets/');
@@ -21,6 +44,14 @@ function isUndoShortcut(event) {
         (event.code === 'KeyZ' || key === 'z');
 }
 
+function isExcludedPage() {
+    const hostname = location.hostname.toLowerCase();
+
+    return excludedHosts.some(excludedHost =>
+        hostname === excludedHost || hostname.endsWith(`.${excludedHost}`)
+    );
+}
+
 document.addEventListener('keydown', function (event) {
     if (!isUndoShortcut(event)) {
         return;
@@ -28,10 +59,10 @@ document.addEventListener('keydown', function (event) {
 
     // Google Sheets implements its own undo history even when the focused cell
     // is not represented by a text-editing element in the page DOM.
-    if (isGoogleSheetsPage() || event.defaultPrevented || isEditableElement(event.target) || isEditableElement(document.activeElement)) {
+    if (!exclusionListReady || isGoogleSheetsPage() || isExcludedPage() || event.defaultPrevented || isEditableElement(event.target) || isEditableElement(document.activeElement)) {
         return;
     }
 
     event.preventDefault();
-    browser.runtime.sendMessage({ command: "reopen_last_tab" });
+    extensionApi.runtime.sendMessage({ command: "reopen_last_tab" });
 });

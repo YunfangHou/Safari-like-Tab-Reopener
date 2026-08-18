@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Safari-like Tab Reopener Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <main>
+        <h1>Excluded websites</h1>
+        <p>On these websites, Command/Ctrl + Z will be left to the website instead of reopening a closed tab.</p>
+        <label for="excluded-hosts">Enter one domain or URL per line. Subdomains are included automatically.</label>
+        <textarea id="excluded-hosts" rows="12" spellcheck="false" placeholder="example.com&#10;https://editor.example.org/project"></textarea>
+        <div class="actions">
+            <button id="save" type="button">Save</button>
+            <span id="status" role="status" aria-live="polite"></span>
+        </div>
+    </main>
+    <script src="options.js"></script>
+</body>
+</html>

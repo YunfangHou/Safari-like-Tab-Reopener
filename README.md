@@ -12,6 +12,8 @@ The shortcut follows the Z key across keyboard layouts, including layouts where 
 
 It will not conflict with the Undo function when you are in a text editing field or working in Google Sheets, i.e., intelligently perform *Undo* instead of *Reopen Tab*.
 
+Websites with their own undo shortcuts, such as image editors and website builders, can be added to an exclusion list. Click the extension button to quickly add the current website or manage the list, or right-click it and choose **Excluded websites** to open the full editor. Each domain also excludes its subdomains.
+
 Developed especially for the users who transfer from, and have got used to the intuitiveness of Safari. We also recommend all users experience this intuitive shortcut!
 
 ## Compatibility
@@ -35,4 +37,3 @@ Install on [Google Chrome Extensions Store](https://chromewebstore.google.com/de
 ### Microsoft Edge or other browsers using Chromium
 
 Please search for related information on how to manually install an extension on your browser. When you need to upload extension file, use [this package](./package%20for%20Chromium).
-

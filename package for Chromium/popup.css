@@ -1,0 +1,112 @@
+:root {
+    color-scheme: light dark;
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    width: 360px;
+    max-height: 520px;
+    margin: 0;
+    color: CanvasText;
+    background: Canvas;
+}
+
+main {
+    padding: 18px;
+}
+
+h1 {
+    margin: 0 0 18px;
+    font-size: 20px;
+}
+
+h2 {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: GrayText;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.current-site {
+    padding: 14px;
+    border-radius: 10px;
+    background: color-mix(in srgb, CanvasText 7%, Canvas);
+}
+
+#current-host {
+    overflow: hidden;
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+section + section {
+    margin-top: 20px;
+}
+
+ul {
+    max-height: 180px;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid color-mix(in srgb, CanvasText 14%, transparent);
+}
+
+li span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+button {
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    background: #1769e0;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.remove {
+    padding: 4px 8px;
+    color: #c52a2a;
+    background: transparent;
+}
+
+.secondary {
+    width: 100%;
+    margin-top: 18px;
+    color: CanvasText;
+    background: transparent;
+    border: 1px solid GrayText;
+}
+
+#empty-list,
+#status {
+    color: GrayText;
+    font-size: 13px;
+}
+
+#status {
+    min-height: 1em;
+    margin: 10px 0 0;
+    color: #c52a2a;
+}

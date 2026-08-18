@@ -1,0 +1,64 @@
+:root {
+    color-scheme: light dark;
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    margin: 0;
+    color: CanvasText;
+    background: Canvas;
+}
+
+main {
+    box-sizing: border-box;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+label {
+    display: block;
+    margin: 28px 0 8px;
+    font-weight: 600;
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    resize: vertical;
+    border: 1px solid GrayText;
+    border-radius: 8px;
+    font: 14px/1.5 ui-monospace, monospace;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+button {
+    padding: 8px 18px;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    background: #1769e0;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.success {
+    color: #16803a;
+}
+
+.error {
+    color: #c52a2a;
+}
