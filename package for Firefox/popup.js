@@ -6,8 +6,15 @@ const toggleCurrentButton = document.getElementById('toggle-current');
 const excludedListElement = document.getElementById('excluded-list');
 const emptyListElement = document.getElementById('empty-list');
 const statusElement = document.getElementById('status');
+const quickReportButton = document.getElementById('quick-report');
+const describeReportButton = document.getElementById('describe-report');
+const reportFormElement = document.getElementById('report-form');
+const reportDescriptionElement = document.getElementById('report-description');
+
+const DEVELOPER_EMAIL = 'Yunfang.Hou2001@gmail.com';
 
 let currentHost = null;
+let currentPageUrl = null;
 let excludedHosts = [];
 
 function matchingRule(hostname) {
@@ -27,6 +34,8 @@ function render() {
 
     currentHostElement.textContent = currentHost || localizeMessage('thisPageCannotBeExcluded');
     toggleCurrentButton.disabled = !currentHost;
+    quickReportButton.disabled = !currentPageUrl;
+    describeReportButton.disabled = !currentPageUrl;
     toggleCurrentButton.textContent = matchedRule
         ? localizeMessage('removeFromExclusions', matchedRule)
         : localizeMessage('excludeThisWebsite');
@@ -53,6 +62,22 @@ function render() {
     }
 }
 
+function openEmailReport(description) {
+    if (!currentPageUrl) {
+        return;
+    }
+
+    const bodyLines = [`${localizeMessage('reportedWebsite')}: ${currentPageUrl}`];
+    if (description) {
+        bodyLines.push('', `${localizeMessage('issueDescription')}:`, description);
+    }
+    const mailtoUrl = `mailto:${DEVELOPER_EMAIL}`
+        + `?subject=${encodeURIComponent(localizeMessage('reportEmailSubject'))}`
+        + `&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+    extensionApi.tabs.create({ url: mailtoUrl });
+    window.close();
+}
+
 function showError() {
     statusElement.textContent = localizeMessage('unableUpdateList');
 }
@@ -66,6 +91,7 @@ async function initialize() {
         const url = new URL(tab.url);
         if (url.protocol === 'http:' || url.protocol === 'https:') {
             currentHost = url.hostname.toLowerCase();
+            currentPageUrl = url.href;
         }
     } catch (error) {
         currentHost = null;
@@ -89,6 +115,22 @@ toggleCurrentButton.addEventListener('click', () => {
 document.getElementById('manage-list').addEventListener('click', () => {
     extensionApi.tabs.create({ url: extensionApi.runtime.getURL('options.html') });
     window.close();
+});
+
+quickReportButton.addEventListener('click', () => openEmailReport(''));
+
+describeReportButton.addEventListener('click', () => {
+    reportFormElement.hidden = false;
+    reportDescriptionElement.focus();
+});
+
+document.getElementById('send-report').addEventListener('click', () => {
+    openEmailReport(reportDescriptionElement.value.trim());
+});
+
+document.getElementById('cancel-report').addEventListener('click', () => {
+    reportFormElement.hidden = true;
+    reportDescriptionElement.value = '';
 });
 
 extensionApi.storage.onChanged.addListener(function (changes, areaName) {

@@ -38,5 +38,14 @@
         "placeholders": { "count": { "content": "$1", "example": "3" } }
     },
     "unableSaveList": { "message": "Unable to save the exclusion list." },
-    "unableLoadList": { "message": "Unable to load the exclusion list." }
+    "unableLoadList": { "message": "Unable to load the exclusion list." },
+    "reportIssue": { "message": "Report an issue" },
+    "quickReport": { "message": "Quick report (URL only)" },
+    "reportWithDescription": { "message": "Add a description" },
+    "issueDescription": { "message": "Description" },
+    "issueDescriptionPlaceholder": { "message": "Tell the developer what went wrong…" },
+    "openEmailReport": { "message": "Open email report" },
+    "cancel": { "message": "Cancel" },
+    "reportedWebsite": { "message": "Website URL" },
+    "reportEmailSubject": { "message": "Safari-like Tab Reopener issue report" }
 }

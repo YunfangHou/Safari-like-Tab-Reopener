@@ -20,6 +20,21 @@
             <ul id="excluded-list"></ul>
         </section>
         <button id="manage-list" class="secondary" type="button" data-i18n="editFullList">Edit full list</button>
+        <section class="report-issue" aria-labelledby="report-heading">
+            <h2 id="report-heading" data-i18n="reportIssue">Report an issue</h2>
+            <div class="report-actions">
+                <button id="quick-report" class="secondary" type="button" disabled data-i18n="quickReport">Quick report</button>
+                <button id="describe-report" class="secondary" type="button" disabled data-i18n="reportWithDescription">Report with description</button>
+            </div>
+            <div id="report-form" hidden>
+                <label for="report-description" data-i18n="issueDescription">What went wrong?</label>
+                <textarea id="report-description" rows="3" maxlength="2000" data-i18n-placeholder="issueDescriptionPlaceholder"></textarea>
+                <div class="report-actions">
+                    <button id="send-report" type="button" data-i18n="openEmailReport">Open email report</button>
+                    <button id="cancel-report" class="secondary" type="button" data-i18n="cancel">Cancel</button>
+                </div>
+            </div>
+        </section>
         <p id="status" role="status" aria-live="polite"></p>
     </main>
     <script src="i18n.js"></script>

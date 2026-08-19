@@ -163,6 +163,7 @@ test('popup adds the active website and stays synchronized', async () => {
         const listeners = {};
         let storageListener;
         let saved;
+        const openedUrls = [];
         const elements = new Map();
 
         function element(id) {
@@ -176,7 +177,8 @@ test('popup adds the active website and stays synchronized', async () => {
                     addEventListener(name, listener) { listeners[`${id}:${name}`] = listener; },
                     replaceChildren() { this.children = []; },
                     append(...children) { this.children.push(...children); },
-                    setAttribute() {}
+                    setAttribute() {},
+                    focus() { this.focused = true; }
                 });
             }
             return elements.get(id);
@@ -200,7 +202,7 @@ test('popup adds the active website and stays synchronized', async () => {
             chrome: {
                 tabs: {
                     query: async () => [{ url: 'https://editor.example.com/project' }],
-                    create() {}
+                    create({ url }) { openedUrls.push(url); }
                 },
                 storage: {
                     local: {
@@ -222,6 +224,19 @@ test('popup adds the active website and stays synchronized', async () => {
 
         storageListener({ excludedHosts: { newValue: ['example.com'] } }, 'local');
         assert.equal(element('toggle-current').textContent, 'removeFromExclusions:example.com');
+
+        listeners['quick-report:click']();
+        const quickReport = new URL(openedUrls.pop());
+        assert.equal(quickReport.pathname, 'Yunfang.Hou2001@gmail.com');
+        assert.equal(quickReport.searchParams.get('body'), 'reportedWebsite: https://editor.example.com/project');
+
+        listeners['describe-report:click']();
+        assert.equal(element('report-form').hidden, false);
+        assert.equal(element('report-description').focused, true);
+        element('report-description').value = 'Undo reopened a tab while editing.';
+        listeners['send-report:click']();
+        const detailedReport = new URL(openedUrls.pop());
+        assert.match(detailedReport.searchParams.get('body'), /issueDescription:\nUndo reopened a tab while editing\.$/);
     }
 });
 
@@ -231,15 +246,20 @@ test('localization helper translates marked elements', () => {
             { dataset: { i18n: 'excludedWebsites' }, textContent: '' },
             { dataset: { i18n: 'save' }, textContent: '' }
         ];
+        const placeholder = { dataset: { i18nPlaceholder: 'issueDescriptionPlaceholder' }, placeholder: '' };
         const context = {
             document: {
                 documentElement: { lang: 'en' },
-                querySelectorAll: () => nodes
+                querySelectorAll: selector => selector === '[data-i18n]' ? nodes : [placeholder]
             },
             chrome: {
                 i18n: {
                     getUILanguage: () => 'zh_CN',
-                    getMessage: key => ({ excludedWebsites: '排除的网站', save: '保存' })[key] || ''
+                    getMessage: key => ({
+                        excludedWebsites: '排除的网站',
+                        save: '保存',
+                        issueDescriptionPlaceholder: '请描述问题…'
+                    })[key] || ''
                 }
             }
         };
@@ -247,5 +267,6 @@ test('localization helper translates marked elements', () => {
         vm.runInNewContext(source(kind, 'i18n.js'), context);
         assert.equal(context.document.documentElement.lang, 'zh-CN');
         assert.deepEqual(nodes.map(node => node.textContent), ['排除的网站', '保存']);
+        assert.equal(placeholder.placeholder, '请描述问题…');
     }
 });

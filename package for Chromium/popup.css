@@ -99,6 +99,45 @@ button:disabled {
     border: 1px solid GrayText;
 }
 
+.report-issue {
+    padding-top: 18px;
+    border-top: 1px solid color-mix(in srgb, CanvasText 14%, transparent);
+}
+
+.report-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.report-actions button {
+    flex: 1;
+    margin-top: 0;
+}
+
+#report-form {
+    margin-top: 12px;
+}
+
+#report-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#report-description {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    resize: vertical;
+    border: 1px solid GrayText;
+    border-radius: 6px;
+    color: CanvasText;
+    background: Canvas;
+    font: inherit;
+}
+
 #empty-list,
 #status {
     color: GrayText;

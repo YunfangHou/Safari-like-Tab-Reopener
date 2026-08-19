@@ -9,4 +9,7 @@
     for (const element of document.querySelectorAll('[data-i18n]')) {
         element.textContent = globalThis.localizeMessage(element.dataset.i18n);
     }
+    for (const element of document.querySelectorAll('[data-i18n-placeholder]')) {
+        element.placeholder = globalThis.localizeMessage(element.dataset.i18nPlaceholder);
+    }
 })();

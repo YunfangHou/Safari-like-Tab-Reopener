@@ -89,6 +89,9 @@ for (const [index, directory] of packageDirectories.entries()) {
         for (const match of html.matchAll(/data-i18n="([^"]+)"/g)) {
             assert.ok(defaultMessages[match[1]], `Missing HTML locale key: ${match[1]}`);
         }
+        for (const match of html.matchAll(/data-i18n-placeholder="([^"]+)"/g)) {
+            assert.ok(defaultMessages[match[1]], `Missing HTML placeholder locale key: ${match[1]}`);
+        }
     }
 }
 
