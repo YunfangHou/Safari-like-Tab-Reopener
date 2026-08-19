@@ -41,12 +41,12 @@
     "unableSaveList": { "message": "Unable to save the exclusion list." },
     "unableLoadList": { "message": "Unable to load the exclusion list." },
     "reportIssue": { "message": "Report an issue" },
-    "quickReport": { "message": "Quick report (URL only)" },
+    "quickReport": { "message": "Quick report (domain only)" },
     "reportWithDescription": { "message": "Add a description" },
     "issueDescription": { "message": "Description" },
     "issueDescriptionPlaceholder": { "message": "Tell the developer what went wrong…" },
     "openEmailReport": { "message": "Open email report" },
     "cancel": { "message": "Cancel" },
-    "reportedWebsite": { "message": "Website URL" },
+    "reportedWebsite": { "message": "Website domain" },
     "reportEmailSubject": { "message": "Safari-like Tab Reopener issue report" }
 }

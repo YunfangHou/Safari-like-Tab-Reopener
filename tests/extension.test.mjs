@@ -252,7 +252,7 @@ test('popup adds the active website and stays synchronized', async () => {
             window: { close() {} },
             chrome: {
                 tabs: {
-                    query: async () => [{ url: 'https://editor.example.com/project' }],
+                    query: async () => [{ url: 'https://editor.example.com:8443/project?token=secret#selection' }],
                     create({ url }) { openedUrls.push(url); }
                 },
                 storage: {
@@ -286,7 +286,7 @@ test('popup adds the active website and stays synchronized', async () => {
         listeners['quick-report:click']();
         const quickReport = new URL(openedUrls.pop());
         assert.equal(quickReport.pathname, 'Yunfang.Hou2001@gmail.com');
-        assert.equal(quickReport.searchParams.get('body'), 'reportedWebsite: https://editor.example.com/project');
+        assert.equal(quickReport.searchParams.get('body'), 'reportedWebsite: editor.example.com');
 
         listeners['describe-report:click']();
         assert.equal(element('report-form').hidden, false);

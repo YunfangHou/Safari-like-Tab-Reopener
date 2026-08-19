@@ -15,7 +15,6 @@ const reportDescriptionElement = document.getElementById('report-description');
 const DEVELOPER_EMAIL = 'Yunfang.Hou2001@gmail.com';
 
 let currentHost = null;
-let currentPageUrl = null;
 let excludedHosts = [];
 let excludedHostsText = '';
 
@@ -69,8 +68,8 @@ function render() {
 
     currentHostElement.textContent = currentHost || localizeMessage('thisPageCannotBeExcluded');
     toggleCurrentButton.disabled = !currentHost;
-    quickReportButton.disabled = !currentPageUrl;
-    describeReportButton.disabled = !currentPageUrl;
+    quickReportButton.disabled = !currentHost;
+    describeReportButton.disabled = !currentHost;
     toggleCurrentButton.textContent = matchedRule
         ? localizeMessage('removeFromExclusions', matchedRule)
         : localizeMessage('excludeThisWebsite');
@@ -98,11 +97,11 @@ function render() {
 }
 
 function openEmailReport(description) {
-    if (!currentPageUrl) {
+    if (!currentHost) {
         return;
     }
 
-    const bodyLines = [`${localizeMessage('reportedWebsite')}: ${currentPageUrl}`];
+    const bodyLines = [`${localizeMessage('reportedWebsite')}: ${currentHost}`];
     if (description) {
         bodyLines.push('', `${localizeMessage('issueDescription')}:`, description);
     }
@@ -129,7 +128,6 @@ async function initialize() {
         const url = new URL(tab.url);
         if (url.protocol === 'http:' || url.protocol === 'https:') {
             currentHost = url.hostname.toLowerCase();
-            currentPageUrl = url.href;
         }
     } catch (error) {
         currentHost = null;

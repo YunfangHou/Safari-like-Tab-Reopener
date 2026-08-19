@@ -41,12 +41,12 @@
     "unableSaveList": { "message": "无法保存排除列表。" },
     "unableLoadList": { "message": "无法加载排除列表。" },
     "reportIssue": { "message": "报告问题" },
-    "quickReport": { "message": "一键报告（仅 URL）" },
+    "quickReport": { "message": "一键报告（仅域名）" },
     "reportWithDescription": { "message": "添加描述后报告" },
     "issueDescription": { "message": "问题描述" },
     "issueDescriptionPlaceholder": { "message": "请告诉开发者哪里出了问题…" },
     "openEmailReport": { "message": "打开报告邮件" },
     "cancel": { "message": "取消" },
-    "reportedWebsite": { "message": "网站 URL" },
+    "reportedWebsite": { "message": "网站域名" },
     "reportEmailSubject": { "message": "Safari 风格标签页恢复器问题报告" }
 }
