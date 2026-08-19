@@ -88,19 +88,29 @@ test('content scripts respect exclusions and editable Shadow DOM contexts', asyn
     }
 });
 
-test('background scripts update per-tab badges', () => {
+test('background scripts initialize exclusions and update per-tab badges', () => {
     for (const kind of packageKinds) {
         const isChromium = kind === 'Chromium';
         const apiName = isChromium ? 'chrome' : 'browser';
         const actionName = isChromium ? 'action' : 'browserAction';
+        let installedListener;
         let messageListener;
         let updatedListener;
+        let saved;
         const badgeUpdates = [];
         const api = {
             runtime: {
-                onInstalled: { addListener() {} },
+                onInstalled: { addListener(listener) { installedListener = listener; } },
                 onMessage: { addListener(listener) { messageListener = listener; } },
                 getURL: path => path
+            },
+            storage: {
+                local: {
+                    set(value) {
+                        saved = value;
+                        return Promise.resolve();
+                    }
+                }
             },
             contextMenus: {
                 removeAll: isChromium ? callback => callback() : async () => {},
@@ -119,6 +129,18 @@ test('background scripts update per-tab badges', () => {
             }
         };
         vm.runInNewContext(source(kind, 'background.js'), { [apiName]: api });
+
+        installedListener({ reason: 'update' });
+        assert.equal(saved, undefined, 'updates preserve the existing exclusion list');
+        installedListener({ reason: 'install' });
+        assert.deepEqual(Array.from(saved.excludedHosts), [
+            'app.diagrams.net',
+            'canva.com',
+            'excalidraw.com',
+            'figma.com',
+            'photopea.com',
+            'tldraw.com'
+        ]);
 
         messageListener({ command: 'set_exclusion_state', excluded: true }, { tab: { id: 7 } });
         assert.deepEqual({ ...badgeUpdates.pop() }, { tabId: 7, text: 'OFF' });

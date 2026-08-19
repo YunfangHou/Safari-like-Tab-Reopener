@@ -1,4 +1,12 @@
 const EXCLUDED_WEBSITES_MENU_ID = 'open-excluded-websites';
+const DEFAULT_EXCLUDED_HOSTS = [
+    'app.diagrams.net',
+    'canva.com',
+    'excalidraw.com',
+    'figma.com',
+    'photopea.com',
+    'tldraw.com'
+];
 
 function setExclusionBadge(tabId, excluded) {
     browser.browserAction.setBadgeText({
@@ -14,7 +22,11 @@ function setExclusionBadge(tabId, excluded) {
     }
 }
 
-browser.runtime.onInstalled.addListener(function () {
+browser.runtime.onInstalled.addListener(function (details) {
+    if (details.reason === 'install') {
+        browser.storage.local.set({ excludedHosts: DEFAULT_EXCLUDED_HOSTS });
+    }
+
     browser.contextMenus.removeAll().then(function () {
         browser.contextMenus.create({
             id: EXCLUDED_WEBSITES_MENU_ID,
