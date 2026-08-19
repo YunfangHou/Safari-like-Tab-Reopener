@@ -21,7 +21,7 @@ package_directory() {
         zip -q -r -X "${temporary_archive}" . -x '.DS_Store' '*/.DS_Store' 'Thumbs.db' '*/Thumbs.db'
     )
     unzip -tq "${temporary_archive}"
-    unzip -Z1 "${temporary_archive}" | grep -qx 'manifest.json'
+    unzip -Z1 "${temporary_archive}" | awk '$0 == "manifest.json" { found = 1 } END { exit found ? 0 : 1 }'
     mv -f "${temporary_archive}" "${final_archive}"
 }
 
