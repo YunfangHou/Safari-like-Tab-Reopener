@@ -62,6 +62,8 @@ test('content scripts respect exclusions and editable Shadow DOM contexts', asyn
             keydown({
                 ctrlKey: true,
                 metaKey: false,
+                shiftKey: false,
+                altKey: false,
                 key: 'z',
                 code: 'KeyZ',
                 target: plain,
@@ -77,6 +79,10 @@ test('content scripts respect exclusions and editable Shadow DOM contexts', asyn
         assert.equal(press({}), false, 'excluded website');
         storageListener({ excludedHosts: { newValue: [] } }, 'local');
         assert.equal(press({}), true, 'ordinary website');
+        assert.equal(press({ ctrlKey: false, metaKey: true }), true, 'Command+Z');
+        assert.equal(press({ shiftKey: true }), false, 'Ctrl+Shift+Z');
+        assert.equal(press({ altKey: true }), false, 'Ctrl+Alt+Z');
+        assert.equal(press({ metaKey: true }), false, 'Ctrl+Command+Z');
         assert.equal(press({ composedPath: () => [plain, shadowEditor] }), false, 'Shadow DOM editor');
         assert.equal(press({ isComposing: true }), false, 'IME composition');
     }

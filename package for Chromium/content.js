@@ -53,10 +53,13 @@ function isEditableContext(event) {
 
 function isUndoShortcut(event) {
     const key = typeof event.key === 'string' ? event.key.toLowerCase() : '';
+    const hasSinglePrimaryModifier = event.ctrlKey !== event.metaKey;
 
     // `key` follows the active keyboard layout, while `code` identifies the
     // physical Z key (for example, it produces "я" on a Russian layout).
-    return (event.ctrlKey || event.metaKey) &&
+    // Require exactly Ctrl/Command + Z so redo and other modified shortcuts
+    // remain available to the page.
+    return hasSinglePrimaryModifier && !event.shiftKey && !event.altKey &&
         (event.code === 'KeyZ' || key === 'z');
 }
 
