@@ -23,7 +23,8 @@
     "unableUpdateList": { "message": "无法更新排除列表。" },
     "settingsTitle": { "message": "Safari 风格标签页恢复器设置" },
     "optionsExplanation": { "message": "在这些网站上，Command/Ctrl + Z 将交由网站处理，而不会恢复关闭的标签页。" },
-    "optionsLabel": { "message": "每行输入一个域名或网址；其子域名会自动包含在内。" },
+    "optionsLabel": { "message": "每行输入一个域名或网址；其子域名会自动包含在内。以 # 开头的行是注释，会被忽略。" },
+    "defaultExcludedHostsComment": { "message": "以下六个绘图与设计网站拥有自己的撤销历史，因此默认加入排除列表。" },
     "save": { "message": "保存" },
     "invalidEntry": {
         "message": "未保存：无效条目“$ENTRY$”。",

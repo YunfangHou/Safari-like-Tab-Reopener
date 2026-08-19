@@ -1,5 +1,6 @@
 const extensionApi = typeof browser === 'undefined' ? chrome : browser;
 const EXCLUDED_HOSTS_KEY = 'excludedHosts';
+const EXCLUDED_HOSTS_TEXT_KEY = 'excludedHostsText';
 
 const currentHostElement = document.getElementById('current-host');
 const toggleCurrentButton = document.getElementById('toggle-current');
@@ -16,6 +17,7 @@ const DEVELOPER_EMAIL = 'Yunfang.Hou2001@gmail.com';
 let currentHost = null;
 let currentPageUrl = null;
 let excludedHosts = [];
+let excludedHostsText = '';
 
 function matchingRule(hostname) {
     return excludedHosts.find(host =>
@@ -23,9 +25,42 @@ function matchingRule(hostname) {
     );
 }
 
+function updateExcludedHostsText(hosts) {
+    const remainingHosts = new Set(hosts);
+    const lines = [];
+
+    for (const line of excludedHostsText.split(/\r?\n/)) {
+        const trimmed = line.trim();
+
+        if (!trimmed || trimmed.startsWith('#')) {
+            if (trimmed || lines.length > 0) {
+                lines.push(trimmed);
+            }
+        } else if (remainingHosts.delete(trimmed)) {
+            lines.push(trimmed);
+        }
+    }
+
+    for (const host of hosts) {
+        if (remainingHosts.delete(host)) {
+            lines.push(host);
+        }
+    }
+
+    while (lines.at(-1) === '') {
+        lines.pop();
+    }
+
+    return lines.join('\n');
+}
+
 async function saveHosts(hosts) {
     excludedHosts = [...new Set(hosts)].sort();
-    await extensionApi.storage.local.set({ [EXCLUDED_HOSTS_KEY]: excludedHosts });
+    excludedHostsText = updateExcludedHostsText(excludedHosts);
+    await extensionApi.storage.local.set({
+        [EXCLUDED_HOSTS_KEY]: excludedHosts,
+        [EXCLUDED_HOSTS_TEXT_KEY]: excludedHostsText
+    });
     render();
 }
 
@@ -84,8 +119,11 @@ function showError() {
 
 async function initialize() {
     const [tab] = await extensionApi.tabs.query({ active: true, currentWindow: true });
-    const stored = await extensionApi.storage.local.get(EXCLUDED_HOSTS_KEY);
+    const stored = await extensionApi.storage.local.get([EXCLUDED_HOSTS_KEY, EXCLUDED_HOSTS_TEXT_KEY]);
     excludedHosts = Array.isArray(stored[EXCLUDED_HOSTS_KEY]) ? stored[EXCLUDED_HOSTS_KEY] : [];
+    excludedHostsText = typeof stored[EXCLUDED_HOSTS_TEXT_KEY] === 'string'
+        ? stored[EXCLUDED_HOSTS_TEXT_KEY]
+        : excludedHosts.join('\n');
 
     try {
         const url = new URL(tab.url);
@@ -134,12 +172,23 @@ document.getElementById('cancel-report').addEventListener('click', () => {
 });
 
 extensionApi.storage.onChanged.addListener(function (changes, areaName) {
-    if (areaName === 'local' && changes[EXCLUDED_HOSTS_KEY]) {
+    if (areaName !== 'local') {
+        return;
+    }
+
+    if (changes[EXCLUDED_HOSTS_TEXT_KEY]) {
+        excludedHostsText = typeof changes[EXCLUDED_HOSTS_TEXT_KEY].newValue === 'string'
+            ? changes[EXCLUDED_HOSTS_TEXT_KEY].newValue
+            : '';
+    }
+
+    if (changes[EXCLUDED_HOSTS_KEY]) {
         excludedHosts = Array.isArray(changes[EXCLUDED_HOSTS_KEY].newValue)
             ? changes[EXCLUDED_HOSTS_KEY].newValue
             : [];
-        render();
     }
+
+    render();
 });
 
 initialize().catch(showError);

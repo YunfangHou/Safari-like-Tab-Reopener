@@ -23,7 +23,8 @@
     "unableUpdateList": { "message": "Unable to update the exclusion list." },
     "settingsTitle": { "message": "Safari-like Tab Reopener Settings" },
     "optionsExplanation": { "message": "On these websites, Command/Ctrl + Z will be left to the website instead of reopening a closed tab." },
-    "optionsLabel": { "message": "Enter one domain or URL per line. Subdomains are included automatically." },
+    "optionsLabel": { "message": "Enter one domain or URL per line. Subdomains are included automatically. Lines beginning with # are comments and are ignored." },
+    "defaultExcludedHostsComment": { "message": "The following six drawing and design websites have their own undo history, so they are excluded by default." },
     "save": { "message": "Save" },
     "invalidEntry": {
         "message": "Not saved: invalid entry “$ENTRY$”.",

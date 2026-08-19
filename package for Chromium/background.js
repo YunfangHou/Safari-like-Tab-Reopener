@@ -1,4 +1,5 @@
 const EXCLUDED_WEBSITES_MENU_ID = 'open-excluded-websites';
+const EXCLUDED_HOSTS_TEXT_KEY = 'excludedHostsText';
 const DEFAULT_EXCLUDED_HOSTS = [
     'app.diagrams.net',
     'canva.com',
@@ -24,7 +25,14 @@ function setExclusionBadge(tabId, excluded) {
 
 chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason === 'install') {
-        chrome.storage.local.set({ excludedHosts: DEFAULT_EXCLUDED_HOSTS });
+        const defaultExcludedHostsText = [
+            `# ${chrome.i18n.getMessage('defaultExcludedHostsComment')}`,
+            ...DEFAULT_EXCLUDED_HOSTS
+        ].join('\n');
+        chrome.storage.local.set({
+            excludedHosts: DEFAULT_EXCLUDED_HOSTS,
+            [EXCLUDED_HOSTS_TEXT_KEY]: defaultExcludedHostsText
+        });
     }
 
     chrome.contextMenus.removeAll(function () {

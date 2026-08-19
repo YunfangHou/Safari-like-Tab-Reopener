@@ -122,7 +122,13 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
                 onUpdated: { addListener(listener) { updatedListener = listener; } }
             },
             sessions: { restore() {} },
-            i18n: { getMessage: key => key === 'badgeOff' ? 'OFF' : 'Excluded websites' },
+            i18n: {
+                getMessage: key => ({
+                    badgeOff: 'OFF',
+                    excludedWebsites: 'Excluded websites',
+                    defaultExcludedHostsComment: 'Drawing apps keep their own undo history.'
+                })[key] || ''
+            },
             [actionName]: {
                 setBadgeText(details) { badgeUpdates.push(details); },
                 setBadgeBackgroundColor() {}
@@ -141,6 +147,15 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
             'photopea.com',
             'tldraw.com'
         ]);
+        assert.equal(saved.excludedHostsText, [
+            '# Drawing apps keep their own undo history.',
+            'app.diagrams.net',
+            'canva.com',
+            'excalidraw.com',
+            'figma.com',
+            'photopea.com',
+            'tldraw.com'
+        ].join('\n'));
 
         messageListener({ command: 'set_exclusion_state', excluded: true }, { tab: { id: 7 } });
         assert.deepEqual({ ...badgeUpdates.pop() }, { tabId: 7, text: 'OFF' });
@@ -165,7 +180,10 @@ test('options normalize hosts and react to shared storage changes', async () => 
             chrome: {
                 storage: {
                     local: {
-                        get: async () => ({ excludedHosts: [] }),
+                        get: async () => ({
+                            excludedHosts: ['legacy.example'],
+                            excludedHostsText: '# Existing comment\nlegacy.example'
+                        }),
                         set: async value => { saved = value; }
                     },
                     onChanged: { addListener(listener) { storageListener = listener; } }
@@ -174,15 +192,20 @@ test('options normalize hosts and react to shared storage changes', async () => 
         };
         vm.runInNewContext(source(kind, 'options.js'), context);
         await flushPromises();
+        assert.equal(textarea.value, '# Existing comment\nlegacy.example');
         assert.equal(context.normalizeHost('HTTPS://*.Editor.Example.COM/path'), 'editor.example.com');
         assert.equal(context.normalizeHost('not a host'), null);
 
-        textarea.value = 'Example.com\nhttps://sub.example.org/path\nexample.com';
+        textarea.value = '# Drawing editor\nExample.com\n\n  # Keep site undo\nhttps://sub.example.org/path\nexample.com';
         await context.saveOptions();
         assert.deepEqual(Array.from(saved.excludedHosts), ['example.com', 'sub.example.org']);
+        assert.equal(saved.excludedHostsText, '# Drawing editor\nexample.com\n\n# Keep site undo\nsub.example.org');
 
-        storageListener({ excludedHosts: { newValue: ['synced.example'] } }, 'local');
-        assert.equal(textarea.value, 'synced.example');
+        storageListener({
+            excludedHosts: { newValue: ['synced.example'] },
+            excludedHostsText: { newValue: '# Synced comment\nsynced.example' }
+        }, 'local');
+        assert.equal(textarea.value, '# Synced comment\nsynced.example');
     }
 });
 
@@ -234,7 +257,10 @@ test('popup adds the active website and stays synchronized', async () => {
                 },
                 storage: {
                     local: {
-                        get: async () => ({ excludedHosts: ['existing.example'] }),
+                        get: async () => ({
+                            excludedHosts: ['existing.example'],
+                            excludedHostsText: '# Keep this comment\nexisting.example'
+                        }),
                         set: async value => { saved = value; }
                     },
                     onChanged: { addListener(listener) { storageListener = listener; } }
@@ -249,8 +275,12 @@ test('popup adds the active website and stays synchronized', async () => {
         listeners['toggle-current:click']();
         await flushPromises();
         assert.deepEqual(Array.from(saved.excludedHosts), ['editor.example.com', 'existing.example']);
+        assert.equal(saved.excludedHostsText, '# Keep this comment\nexisting.example\neditor.example.com');
 
-        storageListener({ excludedHosts: { newValue: ['example.com'] } }, 'local');
+        storageListener({
+            excludedHosts: { newValue: ['example.com'] },
+            excludedHostsText: { newValue: '# Updated comment\nexample.com' }
+        }, 'local');
         assert.equal(element('toggle-current').textContent, 'removeFromExclusions:example.com');
 
         listeners['quick-report:click']();
