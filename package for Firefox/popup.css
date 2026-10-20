@@ -34,6 +34,20 @@ h2 {
     background: color-mix(in srgb, CanvasText 7%, Canvas);
 }
 
+.setting-toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.setting-toggle input {
+    flex: none;
+    margin: 3px 0 0;
+    accent-color: #1769e0;
+}
+
 #current-host {
     overflow: hidden;
     margin-bottom: 12px;

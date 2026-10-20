@@ -16,6 +16,8 @@ Editing fields implemented with web components and Shadow DOM are also detected 
 
 Websites with their own undo shortcuts, such as image editors and website builders, can be added to an exclusion list. Click the extension button to quickly add the current website or manage the list, or right-click it and choose **Excluded websites** to open the full editor. Each domain also excludes its subdomains.
 
+An optional floating button can also reopen the last closed tab. Enable **Show a draggable reopen button on web pages** in the extension popup. It is hidden by default, starts in the bottom-left corner, and remembers its position when dragged.
+
 The extension interface automatically follows the browser language, with English and Simplified Chinese currently available.
 
 Developed especially for the users who transfer from, and have got used to the intuitiveness of Safari. We also recommend all users experience this intuitive shortcut!

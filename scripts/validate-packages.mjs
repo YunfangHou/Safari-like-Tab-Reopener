@@ -32,6 +32,7 @@ assert.equal(manifests[0].version, manifests[1].version, 'Package versions must 
 
 const sharedFiles = [
     'content.js',
+    'reopen-button.js',
     'i18n.js',
     'options.css',
     'options.html',

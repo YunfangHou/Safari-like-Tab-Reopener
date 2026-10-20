@@ -97,6 +97,7 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
         let messageListener;
         let updatedListener;
         let saved;
+        let restoreCount = 0;
         const badgeUpdates = [];
         const api = {
             runtime: {
@@ -121,7 +122,7 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
                 create() {},
                 onUpdated: { addListener(listener) { updatedListener = listener; } }
             },
-            sessions: { restore() {} },
+            sessions: { restore() { restoreCount++; } },
             i18n: {
                 getMessage: key => ({
                     badgeOff: 'OFF',
@@ -161,6 +162,8 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
         assert.deepEqual({ ...badgeUpdates.pop() }, { tabId: 7, text: 'OFF' });
         updatedListener(7, { status: 'loading' });
         assert.deepEqual({ ...badgeUpdates.pop() }, { tabId: 7, text: '' });
+        messageListener({ command: 'reopen_last_tab' }, {});
+        assert.equal(restoreCount, 1, 'button and shortcut messages restore the last session');
     }
 });
 
@@ -272,6 +275,13 @@ test('popup adds the active website and stays synchronized', async () => {
         await flushPromises();
 
         assert.equal(element('current-host').textContent, 'editor.example.com');
+        assert.equal(element('show-reopen-button').checked, false, 'button defaults to hidden');
+        assert.equal(element('show-reopen-button').disabled, false);
+        element('show-reopen-button').checked = true;
+        await listeners['show-reopen-button:change']();
+        assert.deepEqual({ ...saved }, { showReopenButton: true });
+        storageListener({ showReopenButton: { newValue: false } }, 'local');
+        assert.equal(element('show-reopen-button').checked, false);
         listeners['toggle-current:click']();
         await flushPromises();
         assert.deepEqual(Array.from(saved.excludedHosts), ['editor.example.com', 'existing.example']);

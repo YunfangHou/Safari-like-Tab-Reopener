@@ -1,6 +1,9 @@
 const extensionApi = typeof browser === 'undefined' ? chrome : browser;
 const EXCLUDED_HOSTS_KEY = 'excludedHosts';
 const EXCLUDED_HOSTS_TEXT_KEY = 'excludedHostsText';
+const SHOW_REOPEN_BUTTON_KEY = 'showReopenButton';
+
+const showReopenButtonCheckbox = document.getElementById('show-reopen-button');
 
 const currentHostElement = document.getElementById('current-host');
 const toggleCurrentButton = document.getElementById('toggle-current');
@@ -118,7 +121,9 @@ function showError() {
 
 async function initialize() {
     const [tab] = await extensionApi.tabs.query({ active: true, currentWindow: true });
-    const stored = await extensionApi.storage.local.get([EXCLUDED_HOSTS_KEY, EXCLUDED_HOSTS_TEXT_KEY]);
+    const stored = await extensionApi.storage.local.get([EXCLUDED_HOSTS_KEY, EXCLUDED_HOSTS_TEXT_KEY, SHOW_REOPEN_BUTTON_KEY]);
+    showReopenButtonCheckbox.checked = stored[SHOW_REOPEN_BUTTON_KEY] === true;
+    showReopenButtonCheckbox.disabled = false;
     excludedHosts = Array.isArray(stored[EXCLUDED_HOSTS_KEY]) ? stored[EXCLUDED_HOSTS_KEY] : [];
     excludedHostsText = typeof stored[EXCLUDED_HOSTS_TEXT_KEY] === 'string'
         ? stored[EXCLUDED_HOSTS_TEXT_KEY]
@@ -135,6 +140,20 @@ async function initialize() {
 
     render();
 }
+
+showReopenButtonCheckbox.addEventListener('change', async () => {
+    const enabled = showReopenButtonCheckbox.checked;
+    showReopenButtonCheckbox.disabled = true;
+    try {
+        await extensionApi.storage.local.set({ [SHOW_REOPEN_BUTTON_KEY]: enabled });
+        statusElement.textContent = '';
+    } catch (error) {
+        showReopenButtonCheckbox.checked = !enabled;
+        statusElement.textContent = localizeMessage('unableSaveSettings');
+    } finally {
+        showReopenButtonCheckbox.disabled = false;
+    }
+});
 
 toggleCurrentButton.addEventListener('click', () => {
     if (!currentHost) {
@@ -172,6 +191,10 @@ document.getElementById('cancel-report').addEventListener('click', () => {
 extensionApi.storage.onChanged.addListener(function (changes, areaName) {
     if (areaName !== 'local') {
         return;
+    }
+
+    if (changes[SHOW_REOPEN_BUTTON_KEY]) {
+        showReopenButtonCheckbox.checked = changes[SHOW_REOPEN_BUTTON_KEY].newValue === true;
     }
 
     if (changes[EXCLUDED_HOSTS_TEXT_KEY]) {

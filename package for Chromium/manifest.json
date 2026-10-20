@@ -29,6 +29,7 @@
                 "<all_urls>"
             ],
             "js": [
+                "reopen-button.js",
                 "content.js"
             ]
         }
