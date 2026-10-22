@@ -1,7 +1,8 @@
 {
     "manifest_version": 3,
+    "minimum_chrome_version": "127",
     "name": "__MSG_extensionName__",
-    "version": "1.5.1",
+    "version": "1.5.2",
     "description": "__MSG_extensionDescription__",
     "default_locale": "en",
     "icons": {
@@ -43,7 +44,7 @@
             "256": "icons/icon-256.png",
             "512": "icons/icon-512.png"
         },
-        "default_title": "__MSG_excludedWebsites__",
+        "default_title": "__MSG_extensionSettings__",
         "default_popup": "popup.html"
     },
     "commands": {

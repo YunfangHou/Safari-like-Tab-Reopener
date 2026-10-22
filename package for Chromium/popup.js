@@ -2,6 +2,11 @@ const extensionApi = typeof browser === 'undefined' ? chrome : browser;
 const EXCLUDED_HOSTS_KEY = 'excludedHosts';
 const EXCLUDED_HOSTS_TEXT_KEY = 'excludedHostsText';
 const SHOW_REOPEN_BUTTON_KEY = 'showReopenButton';
+const TOOLBAR_CLICK_ACTION_KEY = 'toolbarClickAction';
+const supportsToolbarClickAction = typeof extensionApi.action?.openPopup === 'function';
+const toolbarClickActionSelect = document.getElementById('toolbar-click-action');
+let toolbarClickAction = 'popup';
+document.getElementById('toolbar-click-settings').hidden = !supportsToolbarClickAction;
 
 const showReopenButtonCheckbox = document.getElementById('show-reopen-button');
 
@@ -121,7 +126,10 @@ function showError() {
 
 async function initialize() {
     const [tab] = await extensionApi.tabs.query({ active: true, currentWindow: true });
-    const stored = await extensionApi.storage.local.get([EXCLUDED_HOSTS_KEY, EXCLUDED_HOSTS_TEXT_KEY, SHOW_REOPEN_BUTTON_KEY]);
+    const stored = await extensionApi.storage.local.get([EXCLUDED_HOSTS_KEY, EXCLUDED_HOSTS_TEXT_KEY, SHOW_REOPEN_BUTTON_KEY, TOOLBAR_CLICK_ACTION_KEY]);
+    toolbarClickAction = stored[TOOLBAR_CLICK_ACTION_KEY] === 'restore' ? 'restore' : 'popup';
+    toolbarClickActionSelect.value = toolbarClickAction;
+    toolbarClickActionSelect.disabled = !supportsToolbarClickAction;
     showReopenButtonCheckbox.checked = stored[SHOW_REOPEN_BUTTON_KEY] === true;
     showReopenButtonCheckbox.disabled = false;
     excludedHosts = Array.isArray(stored[EXCLUDED_HOSTS_KEY]) ? stored[EXCLUDED_HOSTS_KEY] : [];
@@ -140,6 +148,33 @@ async function initialize() {
 
     render();
 }
+
+toolbarClickActionSelect.addEventListener('change', async () => {
+    if (!supportsToolbarClickAction) return;
+    const previous = toolbarClickAction;
+    const selected = toolbarClickActionSelect.value === 'restore' ? 'restore' : 'popup';
+    toolbarClickActionSelect.disabled = true;
+    try {
+        await extensionApi.storage.local.set({ [TOOLBAR_CLICK_ACTION_KEY]: selected });
+        const result = await extensionApi.runtime.sendMessage({ command: 'apply_toolbar_click_action' });
+        if (!result?.ok) throw new Error('Unable to apply toolbar preference');
+        toolbarClickAction = selected;
+        statusElement.textContent = '';
+    } catch (error) {
+        // Keep the saved preference and the toolbar consistent if applying it fails.
+        try {
+            await extensionApi.storage.local.set({ [TOOLBAR_CLICK_ACTION_KEY]: previous });
+            await extensionApi.runtime.sendMessage({ command: 'apply_toolbar_click_action' });
+        } catch (rollbackError) {
+            // The error below remains visible so the user can retry.
+        }
+        toolbarClickAction = previous;
+        toolbarClickActionSelect.value = previous;
+        statusElement.textContent = localizeMessage('unableSaveSettings');
+    } finally {
+        toolbarClickActionSelect.disabled = false;
+    }
+});
 
 showReopenButtonCheckbox.addEventListener('change', async () => {
     const enabled = showReopenButtonCheckbox.checked;
@@ -191,6 +226,11 @@ document.getElementById('cancel-report').addEventListener('click', () => {
 extensionApi.storage.onChanged.addListener(function (changes, areaName) {
     if (areaName !== 'local') {
         return;
+    }
+
+    if (changes[TOOLBAR_CLICK_ACTION_KEY]) {
+        toolbarClickAction = changes[TOOLBAR_CLICK_ACTION_KEY].newValue === 'restore' ? 'restore' : 'popup';
+        toolbarClickActionSelect.value = toolbarClickAction;
     }
 
     if (changes[SHOW_REOPEN_BUTTON_KEY]) {

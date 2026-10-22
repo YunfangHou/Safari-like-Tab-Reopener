@@ -1,4 +1,11 @@
 {
+    "extensionSettings": { "message": "Settings…" },
+    "toolbarClickHeading": { "message": "When clicking the extension icon" },
+    "toolbarClickLabel": { "message": "Left-click action" },
+    "toolbarClickPopup": { "message": "Open settings (default)" },
+    "toolbarClickRestore": { "message": "Reopen the last closed tab" },
+    "toolbarClickHelp": { "message": "You can always right-click the icon and choose Settings… to open this panel." },
+    "restoreToolbarTooltip": { "message": "Reopen the last closed tab. Right-click for settings." },
     "extensionName": { "message": "Reopen Closed Tab with Command + Z / Ctrl + Z" },
     "extensionDescription": { "message": "Reopen closed tabs with Command/Ctrl + Z while respecting editing fields and excluded websites." },
     "reopenLastTabCommand": { "message": "Reopen the last closed tab" },

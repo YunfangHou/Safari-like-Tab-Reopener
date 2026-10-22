@@ -1,4 +1,11 @@
 {
+    "extensionSettings": { "message": "设置…" },
+    "toolbarClickHeading": { "message": "点击扩展图标时" },
+    "toolbarClickLabel": { "message": "左键点击行为" },
+    "toolbarClickPopup": { "message": "打开设置面板（默认）" },
+    "toolbarClickRestore": { "message": "恢复最近关闭的标签页" },
+    "toolbarClickHelp": { "message": "始终可以右键点击扩展图标，选择“设置…”打开此面板。" },
+    "restoreToolbarTooltip": { "message": "恢复最近关闭的标签页。右键点击可打开设置。" },
     "extensionName": { "message": "使用 Command + Z / Ctrl + Z 恢复关闭的标签页" },
     "extensionDescription": { "message": "使用 Command/Ctrl + Z 恢复关闭的标签页，同时避开文本编辑区和用户排除的网站。" },
     "reopenLastTabCommand": { "message": "恢复最近关闭的标签页" },

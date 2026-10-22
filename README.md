@@ -18,6 +18,8 @@ Websites with their own undo shortcuts, such as image editors and website builde
 
 An optional floating button can also reopen the last closed tab. Enable **Show a draggable reopen button on web pages** in the extension popup. It is hidden by default, starts in the bottom-left corner, and remembers its position when dragged.
 
+In the Chromium package (Chrome 127+), the extension icon opens the settings popup by default. Under **When clicking the extension icon**, change **Left-click action** to **Reopen the last closed tab** for one-click restoration. The choice is saved across browser restarts. Right-click the icon and choose **Settings…** to open the same popup in either mode; **Excluded websites** still opens the full exclusion editor. Chrome's built-in extension menu items remain available. Restoration follows Chrome's most recently closed session, which can also be an entire window.
+
 The extension interface automatically follows the browser language, with English and Simplified Chinese currently available.
 
 Developed especially for the users who transfer from, and have got used to the intuitiveness of Safari. We also recommend all users experience this intuitive shortcut!

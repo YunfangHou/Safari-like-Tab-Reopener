@@ -3,12 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title data-i18n="excludedWebsites">Excluded websites</title>
+    <title data-i18n="extensionSettings">Settings</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
     <main>
-        <h1 data-i18n="excludedWebsites">Excluded websites</h1>
+        <h1 data-i18n="extensionSettings">Settings</h1>
+        <section id="toolbar-click-settings" aria-labelledby="toolbar-click-heading" hidden>
+            <h2 id="toolbar-click-heading" data-i18n="toolbarClickHeading">When clicking the extension icon</h2>
+            <label class="setting-choice">
+                <span data-i18n="toolbarClickLabel">Left-click action</span>
+                <select id="toolbar-click-action" disabled>
+                    <option value="popup" data-i18n="toolbarClickPopup">Open settings (default)</option>
+                    <option value="restore" data-i18n="toolbarClickRestore">Reopen the last closed tab</option>
+                </select>
+            </label>
+            <p class="setting-help" data-i18n="toolbarClickHelp">You can always right-click the icon and choose Settings… to open this panel.</p>
+        </section>
         <section aria-labelledby="reopen-button-heading">
             <h2 id="reopen-button-heading" data-i18n="reopenButtonSettings">Reopen button</h2>
             <label class="setting-toggle">

@@ -34,6 +34,34 @@ h2 {
     background: color-mix(in srgb, CanvasText 7%, Canvas);
 }
 
+[hidden] {
+    display: none !important;
+}
+
+.setting-choice {
+    display: grid;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.setting-choice select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid GrayText;
+    border-radius: 6px;
+    color: CanvasText;
+    background: Canvas;
+    font: inherit;
+}
+
+.setting-help {
+    margin: 8px 0 0;
+    color: GrayText;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
 .setting-toggle {
     display: flex;
     align-items: flex-start;

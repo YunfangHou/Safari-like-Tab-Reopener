@@ -101,12 +101,15 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
         const badgeUpdates = [];
         const api = {
             runtime: {
+                onStartup: { addListener() {} },
                 onInstalled: { addListener(listener) { installedListener = listener; } },
                 onMessage: { addListener(listener) { messageListener = listener; } },
                 getURL: path => path
             },
             storage: {
+                onChanged: { addListener() {} },
                 local: {
+                    get: async () => ({}),
                     set(value) {
                         saved = value;
                         return Promise.resolve();
@@ -131,6 +134,9 @@ test('background scripts initialize exclusions and update per-tab badges', () =>
                 })[key] || ''
             },
             [actionName]: {
+                onClicked: { addListener() {} },
+                setPopup: async () => {},
+                setTitle: async () => {},
                 setBadgeText(details) { badgeUpdates.push(details); },
                 setBadgeBackgroundColor() {}
             }
@@ -218,6 +224,7 @@ test('popup adds the active website and stays synchronized', async () => {
         let storageListener;
         let saved;
         const openedUrls = [];
+        let failToolbarApply = false;
         const elements = new Map();
 
         function element(id) {
@@ -254,6 +261,7 @@ test('popup adds the active website and stays synchronized', async () => {
             },
             window: { close() {} },
             chrome: {
+                ...(kind === 'Chromium' ? { action: { openPopup() {} } } : {}),
                 tabs: {
                     query: async () => [{ url: 'https://editor.example.com:8443/project?token=secret#selection' }],
                     create({ url }) { openedUrls.push(url); }
@@ -268,13 +276,32 @@ test('popup adds the active website and stays synchronized', async () => {
                     },
                     onChanged: { addListener(listener) { storageListener = listener; } }
                 },
-                runtime: { getURL: path => path }
+                runtime: {
+                    getURL: path => path,
+                    sendMessage: async () => ({ ok: !failToolbarApply })
+                }
             }
         };
         vm.runInNewContext(source(kind, 'popup.js'), context);
         await flushPromises();
 
         assert.equal(element('current-host').textContent, 'editor.example.com');
+        assert.equal(element('toolbar-click-settings').hidden, kind !== 'Chromium');
+        assert.equal(element('toolbar-click-action').value, 'popup', 'toolbar defaults to settings');
+        if (kind === 'Chromium') {
+            element('toolbar-click-action').value = 'restore';
+            await listeners['toolbar-click-action:change']();
+            assert.deepEqual({ ...saved }, { toolbarClickAction: 'restore' });
+            storageListener({ toolbarClickAction: { newValue: 'popup' } }, 'local');
+            assert.equal(element('toolbar-click-action').value, 'popup');
+            failToolbarApply = true;
+            element('toolbar-click-action').value = 'restore';
+            await listeners['toolbar-click-action:change']();
+            assert.equal(element('toolbar-click-action').value, 'popup', 'failed changes roll back');
+            assert.deepEqual({ ...saved }, { toolbarClickAction: 'popup' });
+            assert.equal(element('status').textContent, 'unableSaveSettings');
+            assert.equal(element('toolbar-click-action').disabled, false);
+        }
         assert.equal(element('show-reopen-button').checked, false, 'button defaults to hidden');
         assert.equal(element('show-reopen-button').disabled, false);
         element('show-reopen-button').checked = true;
